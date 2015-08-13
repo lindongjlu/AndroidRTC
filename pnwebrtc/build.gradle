@@ -2,10 +2,10 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "20.0.0"
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "me.kevingleason.pnwebrtc"
+        // applicationId "me.kevingleason.pnwebrtc"
         minSdkVersion 15
         targetSdkVersion 21
         versionName project.VERSION_NAME
@@ -13,7 +13,7 @@ android {
     }
     buildTypes {
         release {
-            runProguard false
+            // runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -21,7 +21,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'io.pristine:libjingle:9127@aar'
+    compile 'io.pristine:libjingle:9690@aar'
     compile 'com.pubnub:pubnub-android:3.7.4'
 }
 

@@ -215,9 +215,10 @@ public class MainActivity extends ListActivity {
      */
     private void dispatchIncomingCall(String userId){
         showToast("Call from: " + userId);
-        Intent intent = new Intent(MainActivity.this, IncomingCallActivity.class);
+        Intent intent = new Intent(MainActivity.this, VideoChatActivity.class); // IncomingCallActivity.class);
         intent.putExtra(Constants.USER_NAME, username);
         intent.putExtra(Constants.CALL_USER, userId);
+        intent.putExtra(Constants.IS_INCOMING_CALL, true);
         startActivity(intent);
     }
 

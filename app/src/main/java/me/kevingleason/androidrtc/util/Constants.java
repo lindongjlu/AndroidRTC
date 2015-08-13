@@ -7,6 +7,7 @@ public class Constants {
     public static final String SHARED_PREFS = "me.kg.androidrtc.SHARED_PREFS";
     public static final String USER_NAME    = "me.kg.androidrtc.SHARED_PREFS.USER_NAME";
     public static final String CALL_USER    = "me.kg.androidrtc.SHARED_PREFS.CALL_USER";
+    public static final String IS_INCOMING_CALL = "me.kg.androidrtc.SHARED_PREFS.IS_INCOMING_CALL";
     public static final String STDBY_SUFFIX = "-stdby";
 
     public static final String PUB_KEY = "pub-c-9d0d75a5-38db-404f-ac2a-884e18b041d8"; // Your Pub Key

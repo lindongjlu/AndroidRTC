@@ -87,13 +87,15 @@ public class PnPeerConnectionClient {
      * @param userId The user to establish a WebRTC connection with
      * @return boolean value of success
      */
-    boolean connect(String userId) {
+    boolean connect(String userId, boolean isIncomingCall) {
         if (!peers.containsKey(userId)) { // Prevents duplicate dials.
             if (peers.size() < MAX_CONNECTIONS) {
                 PnPeer peer = addPeer(userId);
                 peer.pc.addStream(this.localMediaStream);
                 try {
-                    actionMap.get(CreateOfferAction.TRIGGER).execute(userId, new JSONObject());
+                    if (!isIncomingCall) {
+                        actionMap.get(CreateOfferAction.TRIGGER).execute(userId, new JSONObject());
+                    }
                 } catch (JSONException e){
                     e.printStackTrace();
                     return false;

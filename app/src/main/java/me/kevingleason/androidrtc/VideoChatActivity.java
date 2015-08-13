@@ -25,6 +25,7 @@ import org.webrtc.MediaConstraints;
 import org.webrtc.MediaStream;
 import org.webrtc.PeerConnection;
 import org.webrtc.PeerConnectionFactory;
+import org.webrtc.VideoCapturer;
 import org.webrtc.VideoCapturerAndroid;
 import org.webrtc.VideoRenderer;
 import org.webrtc.VideoRendererGui;
@@ -106,7 +107,10 @@ public class VideoChatActivity extends ListActivity {
         String backFacingCam = VideoCapturerAndroid.getNameOfBackFacingDevice();
 
         // Creates a VideoCapturerAndroid instance for the device name
-        VideoCapturerAndroid capturer = VideoCapturerAndroid.create(frontFacingCam);
+        VideoCapturer capturer = VideoCapturer.create(frontFacingCam);
+        if (capturer == null) {
+            capturer = VideoCapturer.create(backFacingCam);
+        }
 
         // First create a Video Source, then we can make a Video Track
         localVideoSource = pcFactory.createVideoSource(capturer, this.pnRTCClient.videoConstraints());
@@ -144,14 +148,15 @@ public class VideoChatActivity extends ListActivity {
         this.pnRTCClient.attachLocalMediaStream(mediaStream);
 
         // Listen on a channel. This is your "phone number," also set the max chat users.
-        this.pnRTCClient.listenOn("Kevin");
+        this.pnRTCClient.listenOn(this.username);
         this.pnRTCClient.setMaxConnections(1);
 
         // If the intent contains a number to dial, call it now that you are connected.
         //  Else, remain listening for a call.
         if (extras.containsKey(Constants.CALL_USER)) {
             String callUser = extras.getString(Constants.CALL_USER, "");
-            connectToUser(callUser);
+            Boolean isIncomingCall = extras.getBoolean(Constants.IS_INCOMING_CALL, false);
+            connectToUser(callUser, isIncomingCall);
         }
     }
 
@@ -224,8 +229,8 @@ public class VideoChatActivity extends ListActivity {
         super.onBackPressed();
     }
 
-    public void connectToUser(String user) {
-        this.pnRTCClient.connect(user);
+    public void connectToUser(String user, boolean isIncomingCall) {
+        this.pnRTCClient.connect(user, isIncomingCall);
     }
 
     public void hangup(View view) {

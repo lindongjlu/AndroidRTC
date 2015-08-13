@@ -186,4 +186,9 @@ public class PnPeer implements SdpObserver, PeerConnection.Observer {
                 " Received: " + this.received + " Type: " + this.type;
     }
 
+    @Override
+    public void onIceConnectionReceivingChange(boolean b) {
+
+    }
+
 }
